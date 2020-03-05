@@ -1,4 +1,4 @@
-# Rabbit-mq DockerFiles 
+# Windows DockerFiles 
 
 The intent of this project is to share some of our windows dockerfiles which we use in our processes as Softdocs. This enables us to contribute to the Open-source community. 
 
