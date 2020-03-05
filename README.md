@@ -11,8 +11,7 @@ Docker & Windows
 
 ## Deployment
 
-To Deploy any docker containers from this repo pull them from Docker hub, as there is a repo with this image built and tagged accordingly. 
-
+To Deploy any docker container from this repo make sure to pull them from Docker hub. 
 ## Built With
 
 * [Docker](https://docs.docker.com/) - Used to containerize. 
