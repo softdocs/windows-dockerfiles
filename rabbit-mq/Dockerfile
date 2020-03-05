@@ -1,10 +1,11 @@
 ARG OS_VERSION=ltsc2019
 FROM mcr.microsoft.com/windows/servercore:$OS_VERSION
 
-SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
 ARG RABBIT_VERSION=3.6.15
 ENV RABBIT_VERSION=$RABBIT_VERSION
+ARG ERLANG_VERSION=19.3
+ENV ERLANG_VERSION=$ERLANG_VERSION
+
 ENV chocolateyUseWindowsCompression false
 ENV ERLANG_SERVICE_MANAGER_PATH="C:\Program Files\erl8.3\erts-8.3\bin"
 ENV RABBITMQ_CONFIG_FILE="c:\rabbitmq"
@@ -12,8 +13,8 @@ ENV RABBITMQ_SERVER="C:\Program Files\RabbitMQ Server\rabbitmq_server-${RABBIT_V
 ENV ADMIN_PASSWORD=password1234@1
 ENV BASE_PASSWORD=password1234@1
 ENV BASE_USERNAME=baseuser
-ARG ERLANG_VERSION=19.3
-ENV ERLANG_VERSION=$ERLANG_VERSION
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
 RUN iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'));\
     choco install -y curl;\
