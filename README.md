@@ -15,11 +15,12 @@ To Deploy any docker container from this repo make sure to pull them from Docker
 ## Built With
 
 * [Docker](https://docs.docker.com/) - Used to containerize. 
-* [Rabbitmq](https://www.rabbitmq.com/) - The service we were containerizing.
+* [Rabbitmq](https://www.rabbitmq.com/) - A service we were containerizing.
+* [Clamav](https://www.clamav.net/) - A service we were containerizing.
 * [Powershell](https://docs.microsoft.com/en-us/powershell/) - Used to configure image. 
 * [Chocolatey](https://chocolatey.org/) - Used for package management
 
 ## Acknowledgments
-* Thanks to the wonderful work done by cortside, https://hub.docker.com/r/cortside/rabbitmq. This was a great help to get rabbit containerized.
+* Thanks to the wonderful work done by cortside https://hub.docker.com/r/cortside/rabbitmq, prom3theu5 https://hub.docker.com/r/prom3theu5/clamav. These were a great help to get these services containerized.
 * Which has insprired us to contribute.   
 
