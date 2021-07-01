@@ -1,4 +1,4 @@
-ARG OS_VERSION=ltsc201
+ARG OS_VERSION=ltsc2019
 FROM mcr.microsoft.com/windows/servercore:$OS_VERSION
 
 ARG RABBIT_VERSION=3.8.11
@@ -14,8 +14,8 @@ ENV BASE_PASSWORD=password1234@1
 ENV BASE_USERNAME=baseuser
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
-
-RUN iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'));
+RUN [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')); 
 RUN choco install -y erlang --version $env:ERLANG_VERSION
 RUN choco install -y rabbitmq --version $env:RABBIT_VERSION
 
