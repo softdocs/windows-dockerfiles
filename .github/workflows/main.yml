@@ -1,0 +1,41 @@
+name: Build and Publish Rabbit Image
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: 'Image tag'
+        required: true
+        default: 'mq3.12.10-el22.3-ltsc2019'
+
+jobs:
+  build-and-publish-image:
+    runs-on: windows-2019
+    env:
+      MAIN_IMAGE_NAME: ${{ secrets.CONTAINER_REGISTRY_NAME }}/rabbit-mq:${{ github.sha }}
+      LATEST_IMAGE_NAME: ${{ secrets.CONTAINER_REGISTRY_NAME }}/rabbit-mq:latest
+      VERSION_IMAGE_NAME: ${{ secrets.CONTAINER_REGISTRY_NAME }}/rabbit-mq:${{ github.event.inputs.image_tag }}
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Docker Hub login
+      uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build Rabbit Image
+      shell: pwsh
+      run: |
+        cd rabbit-mq
+        docker build . -t $env:MAIN_IMAGE_NAME
+        docker tag $env:MAIN_IMAGE_NAME $env:LATEST_IMAGE_NAME
+        docker tag $env:MAIN_IMAGE_NAME $env:VERSION_IMAGE_NAME
+
+    - name: Push Rabbit Image to Docker Hub
+      shell: pwsh
+      run: |
+        docker push $env:MAIN_IMAGE_NAME
+        docker push $env:LATEST_IMAGE_NAME
+        docker push $env:VERSION_IMAGE_NAME
